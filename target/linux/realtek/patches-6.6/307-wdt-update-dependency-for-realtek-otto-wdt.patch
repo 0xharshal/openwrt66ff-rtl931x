@@ -1,6 +1,6 @@
-From b8fc5eecdc5d33cf261986436597b5482ab856da Mon Sep 17 00:00:00 2001
-From: Sander Vanheule <sander@svanheule.net>
-Date: Sun, 14 Nov 2021 19:45:32 +0100
+From a1be369c385c8a997faa25146b9d49420a173bad Mon Sep 17 00:00:00 2001
+From: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date: Sun, 11 Aug 2024 09:22:49 -0400
 Subject: [PATCH] realtek: Backport Realtek Otto WDT driver
 
 Add patch submitted upstream to linux-watchdog and replace the MIPS
@@ -12,12 +12,12 @@ Tested-by: Stijn Segers <foss@volatilesystems.org>
 Tested-by: Paul Fertser <fercerpav@gmail.com>
 Tested-by: Stijn Tintel <stijn@linux-ipv6.be>
 ---
- drivers/watchdog/Kconfig                      | 4 ++--
+ drivers/watchdog/Kconfig | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 --- a/drivers/watchdog/Kconfig
 +++ b/drivers/watchdog/Kconfig
-@@ -956,10 +956,10 @@ config RTD119X_WATCHDOG
+@@ -977,10 +977,10 @@ config RTD119X_WATCHDOG
  
  config REALTEK_OTTO_WDT
  	tristate "Realtek Otto MIPS watchdog support"
