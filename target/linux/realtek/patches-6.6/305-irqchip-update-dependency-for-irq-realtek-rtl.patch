@@ -1,6 +1,6 @@
-From 2cd00b51470a30198b048a5fca48a04db77e29cc Mon Sep 17 00:00:00 2001
-From: INAGAKI Hiroshi <musashino.open@gmail.com>
-Date: Fri, 21 May 2021 23:16:37 +0900
+From a08b57df315955c617047e14061f53dc7f2e95d6 Mon Sep 17 00:00:00 2001
+From: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date: Sun, 11 Aug 2024 09:16:28 -0400
 Subject: [PATCH] realtek: backport irq-realtek-rtl driver from 5.12 to 5.10
 
 This patch backports "irq-realtek-rtl" driver to Kernel 5.10 from 5.12.
@@ -9,13 +9,13 @@ is used in OpenWrt, so update the dependency by the additional patch.
 
 Submitted-by: INAGAKI Hiroshi <musashino.open@gmail.com>
 ---
- drivers/irqchip/Makefile                      | 2 +-
- 1 files changed, 1 insertion(+), 1 deletion(-)
+ drivers/irqchip/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 --- a/drivers/irqchip/Makefile
 +++ b/drivers/irqchip/Makefile
-@@ -112,7 +112,7 @@ obj-$(CONFIG_LOONGSON_PCH_PIC)		+= irq-l
- obj-$(CONFIG_LOONGSON_PCH_MSI)		+= irq-loongson-pch-msi.o
+@@ -114,7 +114,7 @@ obj-$(CONFIG_LOONGSON_PCH_MSI)		+= irq-l
+ obj-$(CONFIG_LOONGSON_PCH_LPC)		+= irq-loongson-pch-lpc.o
  obj-$(CONFIG_MST_IRQ)			+= irq-mst-intc.o
  obj-$(CONFIG_SL28CPLD_INTC)		+= irq-sl28cpld.o
 -obj-$(CONFIG_MACH_REALTEK_RTL)		+= irq-realtek-rtl.o
