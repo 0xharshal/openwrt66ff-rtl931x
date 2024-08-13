@@ -1,7 +1,7 @@
-From 2b88563ee5aafd9571d965b7f2093a0f58d98a31 Mon Sep 17 00:00:00 2001
-From: John Crispin <john@phrozen.org>
-Date: Thu, 26 Nov 2020 12:02:21 +0100
-Subject: PHY: Increase max PHY adddress number
+From bbb5488e213486e03ba5a9a9fd8b5a23a78cef80 Mon Sep 17 00:00:00 2001
+From: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date: Tue, 13 Aug 2024 08:36:20 -0400
+Subject: [PATCH] PHY: Increase max PHY adddress number
 
 * rename the target to realtek
 * add refactored DSA driver
@@ -13,15 +13,15 @@ Subject: PHY: Increase max PHY adddress number
 Submitted-by: Bert Vermeulen <bert@biot.com>
 Submitted-by: Birger Koblitz <mail@birger-koblitz.de>
 Submitted-by: Sander Vanheule <sander@svanheule.net>
-Submitted-by: Bjørn Mork <bjorn@mork.no>
+Submitted-by: B. Mork <bjorn@mork.no>
 Submitted-by: John Crispin <john@phrozen.org>
 ---
- include/linux/phy.h                           | 2 +-
+ include/linux/phy.h | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 --- a/include/linux/phy.h
 +++ b/include/linux/phy.h
-@@ -287,7 +287,7 @@ static inline const char *phy_modes(phy_
+@@ -297,7 +297,7 @@ static inline const char *phy_modes(phy_
  #define PHY_INIT_TIMEOUT	100000
  #define PHY_FORCE_TIMEOUT	10
  
