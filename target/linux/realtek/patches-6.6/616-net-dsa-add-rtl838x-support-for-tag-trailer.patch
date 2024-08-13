@@ -1,7 +1,10 @@
-From 2b88563ee5aafd9571d965b7f2093a0f58d98a31 Mon Sep 17 00:00:00 2001
-From: John Crispin <john@phrozen.org>
-Date: Thu, 26 Nov 2020 12:02:21 +0100
-Subject: net: dsa: Add rtl838x support for tag trailer
+From 49e762d0b355aecbfc4e0d06f576975101d5f8f8 Mon Sep 17 00:00:00 2001
+From: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date: Tue, 13 Aug 2024 11:40:49 -0400
+Subject: [PATCH] realtek: net: dsa: Add rtl838x support for tag trailer
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 * rename the target to realtek
 * add refactored DSA driver
@@ -16,12 +19,12 @@ Submitted-by: Sander Vanheule <sander@svanheule.net>
 Submitted-by: Bjørn Mork <bjorn@mork.no>
 Submitted-by: John Crispin <john@phrozen.org>
 ---
- net/dsa/tag_trailer.c                         | 16 +++++++++++++-
+ net/dsa/tag_trailer.c | 18 +++++++++++++++++-
  1 file changed, 17 insertions(+), 1 deletion(-)
 
 --- a/net/dsa/tag_trailer.c
 +++ b/net/dsa/tag_trailer.c
-@@ -17,7 +17,12 @@ static struct sk_buff *trailer_xmit(stru
+@@ -19,7 +19,12 @@ static struct sk_buff *trailer_xmit(stru
  
  	trailer = skb_put(skb, 4);
  	trailer[0] = 0x80;
@@ -34,7 +37,7 @@ Submitted-by: John Crispin <john@phrozen.org>
  	trailer[2] = 0x10;
  	trailer[3] = 0x00;
  
-@@ -33,12 +38,23 @@ static struct sk_buff *trailer_rcv(struc
+@@ -35,12 +40,23 @@ static struct sk_buff *trailer_rcv(struc
  		return NULL;
  
  	trailer = skb_tail_pointer(skb) - 4;
