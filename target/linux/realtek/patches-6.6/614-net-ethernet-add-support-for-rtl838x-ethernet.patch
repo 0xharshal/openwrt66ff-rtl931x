@@ -1,7 +1,10 @@
-From 2b88563ee5aafd9571d965b7f2093a0f58d98a31 Mon Sep 17 00:00:00 2001
-From: John Crispin <john@phrozen.org>
-Date: Thu, 26 Nov 2020 12:02:21 +0100
-Subject: net: ethernet: Add support for RTL838x ethernet
+From db70c434c19adb0b8b01770662b9330cfa447ad1 Mon Sep 17 00:00:00 2001
+From: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date: Fri, 16 Aug 2024 12:39:19 -0400
+Subject: [PATCH] realtek: net: ethernet: Add support for RTL838x ethernet
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 * rename the target to realtek
 * add refactored DSA driver
@@ -16,13 +19,13 @@ Submitted-by: Sander Vanheule <sander@svanheule.net>
 Submitted-by: Bjørn Mork <bjorn@mork.no>
 Submitted-by: John Crispin <john@phrozen.org>
 ---
- drivers/net/ethernet/Kconfig                  | 7 +-
- drivers/net/ethernet/Makefile                 | 1 +
+ drivers/net/ethernet/Kconfig  | 7 +++++++
+ drivers/net/ethernet/Makefile | 1 +
  2 files changed, 8 insertions(+)
 
 --- a/drivers/net/ethernet/Kconfig
 +++ b/drivers/net/ethernet/Kconfig
-@@ -166,6 +166,13 @@ source "drivers/net/ethernet/rdc/Kconfig
+@@ -170,6 +170,13 @@ source "drivers/net/ethernet/rdc/Kconfig
  source "drivers/net/ethernet/realtek/Kconfig"
  source "drivers/net/ethernet/renesas/Kconfig"
  source "drivers/net/ethernet/rocker/Kconfig"
@@ -38,7 +41,7 @@ Submitted-by: John Crispin <john@phrozen.org>
  source "drivers/net/ethernet/sgi/Kconfig"
 --- a/drivers/net/ethernet/Makefile
 +++ b/drivers/net/ethernet/Makefile
-@@ -77,6 +77,7 @@ obj-$(CONFIG_NET_VENDOR_REALTEK) += real
+@@ -81,6 +81,7 @@ obj-$(CONFIG_NET_VENDOR_REALTEK) += real
  obj-$(CONFIG_NET_VENDOR_RENESAS) += renesas/
  obj-$(CONFIG_NET_VENDOR_RDC) += rdc/
  obj-$(CONFIG_NET_VENDOR_ROCKER) += rocker/
