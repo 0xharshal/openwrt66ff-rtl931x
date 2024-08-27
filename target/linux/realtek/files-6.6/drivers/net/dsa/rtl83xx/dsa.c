@@ -891,7 +891,7 @@ static void rtl83xx_phylink_mac_link_up(struct dsa_switch *ds, int port,
 
 	mcr = sw_r32(priv->r->mac_force_mode_ctrl(port));
 
-	if (priv->family_id = RTL8380_FAMILY_ID) {
+	if (priv->family_id == RTL8380_FAMILY_ID) {
 		mcr &= ~RTL838X_RX_PAUSE_EN;
 		mcr &= ~RTL838X_TX_PAUSE_EN;
 		mcr &= ~RTL838X_DUPLEX_MODE;
@@ -908,7 +908,7 @@ static void rtl83xx_phylink_mac_link_up(struct dsa_switch *ds, int port,
 		if (dsa_port_is_cpu(dp))
 			mcr |= RTL83XX_FORCE_EN;
 
-	} else if (priv->family_id = RTL8390_FAMILY_ID) {
+	} else if (priv->family_id == RTL8390_FAMILY_ID) {
 		mcr &= ~RTL839X_RX_PAUSE_EN;
 		mcr &= ~RTL839X_TX_PAUSE_EN;
 		mcr &= ~RTL839X_DUPLEX_MODE;
