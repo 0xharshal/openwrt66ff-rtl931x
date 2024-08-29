@@ -3917,6 +3917,18 @@ static struct phy_driver rtl83xx_phy_driver[] = {
 		.get_eee        = rtl8226_get_eee,
 	},
 	{
+		PHY_ID_MATCH_MODEL(PHY_ID_RTL8224),
+		.name		= "REALTEK RTL8224",
+		.features	= PHY_GBIT_FEATURES,
+		.flags		= PHY_HAS_REALTEK_PAGES,
+		.suspend	= genphy_suspend,
+		.resume		= genphy_resume,
+		.set_loopback	= genphy_loopback,
+		.config_aneg = rtl8226_config_aneg,
+		.set_eee = rtl8226_set_eee,
+		.get_eee = rtl8226_get_eee,
+	},
+	{
 		PHY_ID_MATCH_MODEL(PHY_ID_RTL8226),
 		.name		= "REALTEK RTL8226",
 		.features	= PHY_GBIT_FEATURES,
