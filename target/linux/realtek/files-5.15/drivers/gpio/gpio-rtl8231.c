@@ -56,10 +56,16 @@ static u32 rtl8231_read(struct rtl8231_gpios *gpios, u32 reg)
 	if (n >= USEC_TIMEOUT)
 		return 0x80000000;
 
-	pr_debug("%s: %x, %x, %x\n", __func__, gpios->smi_bus_id,
-		reg, (t & 0xffff0000) >> 16);
+	if (soc_info.family == RTL9310_FAMILY_ID) {
+		pr_debug("%s: %x, %x, %x\n", __func__, gpios->smi_bus_id,
+			reg, (t & 0xffff000) >> 12);
+		return (t & 0xffff000) >> 12;
+	} else {
+		pr_debug("%s: %x, %x, %x\n", __func__, gpios->smi_bus_id,
+			reg, (t & 0xffff0000) >> 16);
 
-	return (t & 0xffff0000) >> 16;
+		return (t & 0xffff0000) >> 16;
+	}
 }
 
 static int rtl8231_write(struct rtl8231_gpios *gpios, u32 reg, u32 data)
@@ -69,7 +75,11 @@ static int rtl8231_write(struct rtl8231_gpios *gpios, u32 reg, u32 data)
 	pr_debug("%s: %x, %x, %x\n", __func__, gpios->smi_bus_id, reg, data);
 	reg &= 0x1f;
 
-	t = (gpios->smi_bus_id << 2) | (reg << 7) | (data << 16);
+	if (soc_info.family == RTL9310_FAMILY_ID) {
+		t = (gpios->smi_bus_id << 2) | (reg << 7) | (data << 12);
+	} else {
+		t = (gpios->smi_bus_id << 2) | (reg << 7) | (data << 16);
+	}
 	/* Set write bit */
 	t |= 2;
 
@@ -265,11 +275,19 @@ int rtl8231_init(struct rtl8231_gpios *gpios)
 		/* RTL8380: Enable RTL8231 indirect access mode */
 		sw_w32_mask(0, 1, RTL838X_EXTRA_GPIO_CTRL);
 		sw_w32_mask(3, 1, RTL838X_DMY_REG5);
+	} else if (soc_info.family == RTL9300_FAMILY_ID) {
+		sw_w32_mask(1 << 8, 1 << 8, RTL930X_EXT_GPIO_GLB_CTRL);
+	} else if (soc_info.family == RTL9310_FAMILY_ID) {
+		/* RTL9310 Enable external gpio in EXT_GPIO_GLB_CTRL register */
+		sw_w32_mask(1 << 8, 1 << 8, RTL931X_EXT_GPIO_GLB_CTRL);
 	}
 
-	ret = rtl8231_read(gpios, RTL8231_LED_FUNC1);
-	if ((ret & 0x80000000) || ((ret & RTL8231_READY_MASK) != RTL8231_READY_VALUE))
+	if (soc_info.family == RTL8390_FAMILY_ID || soc_info.family == RTL8380_FAMILY_ID) {
+		ret = rtl8231_read(gpios, RTL8231_LED_FUNC1);
+		if ((ret & 0x80000000) || ((ret & RTL8231_READY_MASK) != RTL8231_READY_VALUE)) {
 		return -ENXIO;
+		}
+	}
 
 	/* Select GPIO functionality and force input direction for pins 0-36 */
 	rtl8231_write(gpios, RTL8231_GPIO_PIN_SEL(0), 0xffff);
@@ -316,6 +334,14 @@ static int rtl8231_gpio_probe(struct platform_device *pdev)
 
 	if (soc_info.family == RTL8390_FAMILY_ID) {
 		gpios->ext_gpio_indrt_access = RTL839X_EXT_GPIO_INDRT_ACCESS;
+	}
+
+	if (soc_info.family == RTL9300_FAMILY_ID) {
+		gpios->ext_gpio_indrt_access = RTL930X_EXT_GPIO_INDRT_ACCESS;
+	}
+
+	if (soc_info.family == RTL9310_FAMILY_ID) {
+		gpios->ext_gpio_indrt_access = RTL931X_EXT_GPIO_INDRT_ACCESS;
 	}
 
 	err = of_property_read_u32(np, "indirect-access-bus-id", &gpios->smi_bus_id);
