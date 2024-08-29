@@ -1662,7 +1662,7 @@ static int __init rtl83xx_sw_probe(struct platform_device *pdev)
 
 	/* TODO: put this into l2_setup() */
 	/* Flood BPDUs to all ports including cpu-port */
-	if (soc_info.family != RTL9300_FAMILY_ID) {
+	if (soc_info.family != RTL9300_FAMILY_ID && soc_info.family != RTL9310_FAMILY_ID) {
 		bpdu_mask = soc_info.family == RTL8380_FAMILY_ID ? 0x1FFFFFFF : 0x1FFFFFFFFFFFFF;
 		priv->r->set_port_reg_be(bpdu_mask, priv->r->rma_bpdu_fld_pmask);
 
